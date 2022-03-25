@@ -30,30 +30,4 @@ def get_whisky():
     return df
 
 
-def emailnew(df):
-    sender_email = "a.chiho13@gmail.com"
-    receiver_email = "ahomnky11@gmail.com"
-    password = creds.password
-    message = MIMEMultipart("alternative")
-    message["Subject"] = "New Whisky Today"
-    message["From"] = sender_email
-    message["To"] = receiver_email
-
-    text = """\
-    New stuff in today!"""
-    html = df.to_html(index=False)
-    part1 = MIMEText(text, "plain")
-    part2 = MIMEText(html, "html")
-
-    message.attach(part1)
-    message.attach(part2)
-
-
-    context = ssl.create_default_context()
-    with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as server:
-        server.login(sender_email, password)
-        server.sendmail(
-            sender_email, receiver_email, message.as_string()
-        )
-
-emailnew(get_whisky())
+print(get_whisky())
